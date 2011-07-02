@@ -1,0 +1,6 @@
+== 
+1. Set up a Facebook application and fill up the CLIENT_ID and APP_SECRET in facebook_controller.rb
+2. If you're running on your local machine (on port 3000), go to http://localhost:3000/sign_in
+3. Analyze the results!
+
+This uses the fb_graph 1.9.1 gem.
