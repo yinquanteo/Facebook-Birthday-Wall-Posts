@@ -33,7 +33,7 @@ get '/' do
     rescue Exception => e
       # retry stats gathering from the index it last failed at
       puts "FAILED #{e.to_s}"
-      redirect to(url('/sign_in', :failed_at => params[:failed_at]))
+      redirect url("/sign_in?failed_at=#{i}")
       break
     end
   end
@@ -70,7 +70,12 @@ end
 def client
   unless @client
     @client = FbGraph::Auth.new(CLIENT_ID, APP_SECRET).client
-    @client.redirect_uri = url('/', :failed_at => params[:failed_at])
+    @client.redirect_uri = redirect_url(params[:failed_at])
   end
   @client
+end
+
+def redirect_url failed_at
+  fragment = failed_at ? "?failed_at=#{failed_at}" : ""
+  url('/') + fragment
 end
